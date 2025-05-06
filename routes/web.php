@@ -11,11 +11,8 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-// Route danh mục
-Route::prefix('danh-muc')->group(function() {
-    Route::get('/{category}', [ProductController::class, 'getProductByCategory'])->name('customer.product.category');
-    Route::get('/{category}/{brand}', [ProductController::class, 'getProductByCategoryAndBrand'])->name('customer.product.category.brand');
-});
+// Route thương hiệu
+Route::get('/brand/{brandName}', [ProductController::class, 'getProductByBrand'])->name('customer.product.brand');
 
 // Route chi tiết sản phẩm (giữ nguyên)
 Route::get('/product/{slug}', [ProductController::class, 'getProductDetail'])->name('customer.product.detail');

@@ -17,14 +17,8 @@ class BrandSeeder extends Seeder
             ['name' => 'Samsung', 'logo' => 'samsung.png'],
             ['name' => 'Xiaomi', 'logo' => 'xiaomi.png'],
             ['name' => 'Oppo', 'logo' => 'oppo.png'],
-            ['name' => 'Realme', 'logo' => 'realme.png'],
+            ['name' => 'Realme', 'logo' => 'realme.jpg'],
             ['name' => 'Vivo', 'logo' => 'vivo.png'],
-            ['name' => 'Asus', 'logo' => 'asus.png'],
-            ['name' => 'HP', 'logo' => 'hp.png'],
-            ['name' => 'Dell', 'logo' => 'dell.png'],
-            ['name' => 'Lenovo', 'logo' => 'lenovo.png'],
-            ['name' => 'MacBook', 'logo' => 'macbook.png'],
-            ['name' => 'Anker', 'logo' => 'anker.png'],
         ];
 
         foreach ($brands as $brand) {

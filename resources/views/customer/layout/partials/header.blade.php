@@ -27,20 +27,5 @@
             </a>
         </div>
     </div>
-
-    <!-- Category Navigation -->
-    <nav class="bg-[#FFD500]">
-        <div class="container mx-auto px-4 py-2">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                @foreach ($categories as $category)
-                    <a href="{{ route('customer.product.category', ['category' => $category->slug]) }}"
-                       class="flex items-center space-x-2 text-gray-800 hover:text-blue-700 whitespace-nowrap">
-                        <i class="{{ $category->icon }}"></i>
-                        <span>{{ $category->name }}</span>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </nav>
     
 </header>

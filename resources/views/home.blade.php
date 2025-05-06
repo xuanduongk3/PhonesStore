@@ -44,13 +44,14 @@
 
 <!-- Nội dung trang chính -->
 <div class="content mt-8">
+
     <!-- Sản phẩm nổi bật -->
     <div class="w-full max-w-screen-xl mx-auto px-4 mb-10 bg-white rounded-2xl shadow p-6">
         <h2 class="text-2xl font-bold mb-4 text-gray-800">Sản phẩm nổi bật</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             @foreach ($featuredProducts as $product)
                 <div class="border rounded-2xl p-4 bg-white border-[#EAECF0] transform transition duration-300 hover:scale-105 shadow-sm">
-                    <a href="">
+                    <a href="{{ route('customer.product.detail', ['slug' => $product->slug]) }}">
                         <img src="{{ asset('images/products/thumbnails/' . $product->thumbnail) }}" alt="{{ $product->name }}" class="w-full h-40 object-contain mb-3 rounded-xl">
                     </a>
                     <h3 class="text-base font-medium text-gray-900 truncate">{{ $product->name }}</h3>
@@ -88,6 +89,22 @@
                         <span class="text-gray-500 ml-2">({{ number_format($rating, 1) }})</span>
                     </div>
                 </div>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- Thương hiệu --}}
+    <div class="w-full max-w-screen-xl mx-auto px-4 mb-10 bg-white rounded-2xl shadow p-6">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Thương hiệu</h2>
+    
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            @foreach ($brands as $brand)
+                <a href="{{ route('customer.product.brand', ['brandName' => $brand->name]) }}"
+                   class="border border-gray-200 rounded-lg p-4 flex items-center justify-center hover:shadow-md hover:border-blue-400 transition">
+                    <img src="{{ asset('images/brands/' . $brand->logo) }}"
+                         alt="{{ $brand->name }}"
+                         class="h-16 object-contain">
+                </a>
             @endforeach
         </div>
     </div>

@@ -13,16 +13,16 @@ class ColorSeeder extends Seeder
     public function run(): void
     {
         $colors = [
-            ['name' => 'black', 'hex_code' => '#000000'],
-            ['name' => 'pink', 'hex_code' => '#ffc0cb'],
-            ['name' => 'ultramarine', 'hex_code' => '#3f00ff'],
-            ['name' => 'white', 'hex_code' => '#ffffff'],
-            ['name' => 'black_titan', 'hex_code' => '#1c1c1e'],
-            ['name' => 'desert_titan', 'hex_code' => '#c9bca7'],
-            ['name' => 'natural_titan', 'hex_code' => '#d6d0c4'],
-            ['name' => 'white_titan', 'hex_code' => '#f9f9f9'],
-            ['name' => 'gray', 'hex_code' => '#808080'],
-            ['name' => 'green', 'hex_code' => '#008000'],
+            ['name' => 'black', 'title' => 'Đen' , 'hex_code' => '#3C4042'],
+            ['name' => 'pink', 'title' => 'Hồng' , 'hex_code' => '#F2ADDA'],
+            ['name' => 'ultramarine', 'title' => 'Xanh lưu ly' , 'hex_code' => '#3f00ff'],
+            ['name' => 'white', 'title' => 'Trắng' , 'hex_code' => '#FAFAFA'],
+            ['name' => 'black_titan', 'title' => 'Titan đen' , 'hex_code' => '#3F4042'],
+            ['name' => 'desert_titan', 'title' => 'Titan sa mạc', 'hex_code' => '#C4AB97'],
+            ['name' => 'natural_titan', 'title' => 'Titan tự nhiên', 'hex_code' => '#BAB4A9'],
+            ['name' => 'white_titan', 'title' => 'Titan trắng', 'hex_code' => '#F2F1EB'],
+            ['name' => 'gray', 'title' => 'Xám' , 'hex_code' => '#808080'],
+            ['name' => 'green', 'title' => 'Xanh lá', 'hex_code' => '#008000'],
         ];
 
         foreach ($colors as $color) {

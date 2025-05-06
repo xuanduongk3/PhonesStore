@@ -5,55 +5,61 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\Category;
 use App\Models\Brand;
 
 class ProductController extends Controller
 {
     //
-    public function getProductByCategory(Request $request, $category)
-    {
-        $category = Category::where('slug', $category)->first();
-        
-        $products = $category->products()->with(['variants', 'reviews'])->get();
 
+    public function getProductByBrand(Request $request, $brandName)
+    {
+        $brands = Brand::all();
+
+        // Lấy thương hiệu theo tên (brand name)
+        $brand = Brand::where('name', $brandName)->firstOrFail();
+
+        // Lọc sản phẩm theo brand
+        $productsQuery = Product::with(['variants', 'specifications', 'reviews'])
+            ->where('brand_id', $brand->id);
+
+        // Xử lý sắp xếp nếu có
         if ($request->has('sort')) {
-            $products = $products->sortBy(function ($product) {
+            $products = $productsQuery->get()->sortBy(function ($product) {
                 return $product->variants->first()?->price ?? 0;
             }, SORT_REGULAR, $request->sort === 'desc');
+        } else {
+            $products = $productsQuery->get();
         }
 
-        $brandIds = $products->pluck('brand_id')->unique();
-        $brands = Brand::whereIn('id', $brandIds)->get();
-        return view('customer.product.category', compact('category', 'products', 'brands'));
+        // URL sắp xếp
+        $sortUrl = route('customer.product.brand', ['brandName' => $brand->name]);
+
+        return view('customer.product.brand', [
+            'brands' => $brands,
+            'brand' => $brand,
+            'products' => $products,
+            'sortUrl' => $sortUrl
+        ]);
     }
 
-    public function getProductByCategoryAndBrand(Request $request, $category, $brand)
-    {
-        $category = Category::where('slug', $category)->first();
-        
-        $brand = Brand::where('name', $brand)->first();
-
-        $categoryProducts = $category->products();
-        $brandIds = $categoryProducts->pluck('brand_id')->unique();
-        $brands = Brand::whereIn('id', $brandIds)->get();
-
-        $products = Product::where('category_id', $category->id)
-                            ->where('brand_id', $brand->id) 
-                            ->with(['variants', 'reviews'])
-                            ->get();
-
-        if ($request->has('sort')) {
-            $products = $products->sortBy(function ($product) {
-                return $product->variants->first()?->price ?? 0;
-            }, SORT_REGULAR, $request->sort === 'desc');
-        }
-        return view('customer.product.category', compact('category', 'brands', 'brand', 'products'));
-    }
 
     public function getProductDetail($slug)
     {
         $product = Product::with(['variants', 'specifications', 'reviews'])->where('slug', $slug)->first();
-        return view('customer.product.detail', compact('product'));
+        $otherProducts = Product::with(['variants', 'specifications', 'reviews'])->where('brand_id', $product->brand_id)->where('id', '!=', $product->id)->get();
+        $reviews = $product->reviews;
+
+        $averageRating = round($reviews->avg('rating'), 1);
+        $ratingCount = $reviews->count();
+
+        $ratingBreakdown = [
+            5 => $reviews->where('rating', 5)->count(),
+            4 => $reviews->where('rating', 4)->count(),
+            3 => $reviews->where('rating', 3)->count(),
+            2 => $reviews->where('rating', 2)->count(),
+            1 => $reviews->where('rating', 1)->count(),
+        ];
+
+        return view('customer.product.detail', compact('product', 'otherProducts', 'averageRating', 'ratingCount', 'ratingBreakdown'));
     }
 }
