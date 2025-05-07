@@ -1,5 +1,5 @@
 @extends('customer.layout.app')
-
+@section('title', 'Trang chủ')
 @section('content')
 
 <style>

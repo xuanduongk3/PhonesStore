@@ -1,5 +1,5 @@
 @extends('customer.layout.app')
-
+@section('title', 'Thương hiệu ' . '- ' . $brand->name)
 @section('content')
 
 <!-- Thương hiệu -->

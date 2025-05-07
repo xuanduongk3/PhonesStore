@@ -19,13 +19,27 @@
 
         <!-- Login & Cart -->
         <div class="flex space-x-6 text-sm">
-            <a href="#" class="flex items-center text-gray-800 hover:text-blue-700 whitespace-nowrap">
-                <i class="fas fa-user mr-1"></i> <span>Đăng nhập</span>
-            </a>
+            @if(Auth::check())
+                <div class="flex items-center text-gray-800 whitespace-nowrap">
+                    <i class="fas fa-user mr-1"></i>
+                    <span>Xin chào, {{ Auth::user()->name }}</span>
+                </div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="flex items-center text-gray-800 hover:text-red-600 whitespace-nowrap">
+                        <i class="fas fa-sign-out-alt mr-1"></i> <span>Đăng xuất</span>
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="flex items-center text-gray-800 hover:text-blue-700 whitespace-nowrap">
+                    <i class="fas fa-user mr-1"></i> <span>Đăng nhập</span>
+                </a>
+            @endif
+        
             <a href="#" class="flex items-center text-gray-800 hover:text-blue-700 whitespace-nowrap">
                 <i class="fas fa-shopping-cart mr-1"></i> <span>Giỏ hàng</span>
             </a>
-        </div>
+        </div>        
     </div>
     
 </header>
