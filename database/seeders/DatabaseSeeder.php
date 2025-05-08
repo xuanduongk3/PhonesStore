@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\Banner;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,11 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
         $this->call([
             BannerSeeder::class,
             BrandSeeder::class,
@@ -30,7 +26,10 @@ class DatabaseSeeder extends Seeder
             AppleSeeder::class,
             SamsungSeeder::class,
             UserSeeder::class,
-            ReviewSeeder::class
+            ReviewSeeder::class,
+            CartSeeder::class,
+            AddressSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }

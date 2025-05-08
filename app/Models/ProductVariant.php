@@ -40,4 +40,10 @@ class ProductVariant extends Model
     {
         return $this->price * (1 - $this->discount / 100);
     }
+
+    // Mối quan hệ với Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

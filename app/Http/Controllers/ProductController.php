@@ -11,6 +11,26 @@ class ProductController extends Controller
 {
     //
 
+    public function getAllProducts()
+    {
+        $products = Product::with(['variants', 'specifications', 'reviews'])->get();
+        return view('customer.product.index', ['products' => $products]);
+    }
+
+    public function getProductBySearch(Request $request)
+    {
+        $search = $request->search;
+        if($request->has('search') && $request->search != ''){
+            $products = Product::with(['variants', 'specifications', 'reviews'])
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->get();
+        }
+        else{
+            $products = Product::with(['variants', 'specifications', 'reviews'])->get();
+        }
+
+        return view('customer.product.index', ['products' => $products, 'search' => $search]);
+    }
     public function getProductByBrand(Request $request, $brandName)
     {
         $brands = Brand::all();
