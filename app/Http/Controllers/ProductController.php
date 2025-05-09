@@ -29,7 +29,7 @@ class ProductController extends Controller
             $products = Product::with(['variants', 'specifications', 'reviews'])->get();
         }
 
-        return view('customer.product.index', ['products' => $products, 'search' => $search]);
+        return view('customer.product.search', ['products' => $products, 'search' => $search]);
     }
     public function getProductByBrand(Request $request, $brandName)
     {

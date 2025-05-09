@@ -4,6 +4,11 @@
 @section('content')
 
 <div class="w-full max-w-screen-xl mx-auto px-4 mb-10 bg-white rounded-2xl shadow p-6 mt-10">
+    @if (!empty($search))
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            Kết quả tìm kiếm cho "{{ $search }}"
+        </h2>
+    @endif
     
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         @foreach ($products as $pr)

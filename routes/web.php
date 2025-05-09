@@ -13,14 +13,15 @@ use App\Http\Controllers\CartController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-//Route tìm kiếm sản phẩm
+//Route sản phẩm
+Route::get('/products', [ProductController::class, 'getAllProducts'])->name('customer.product.index');
 Route::get('/product/search', [ProductController::class, 'getProductBySearch'])->name('customer.product.search');
+// Route chi tiết sản phẩm
+Route::get('/product/{slug}', [ProductController::class, 'getProductDetail'])->name('customer.product.detail');
+
 
 // Route thương hiệu
 Route::get('/brand/{brandName}', [ProductController::class, 'getProductByBrand'])->name('customer.product.brand');
-
-// Route chi tiết sản phẩm (giữ nguyên)
-Route::get('/product/{slug}', [ProductController::class, 'getProductDetail'])->name('customer.product.detail');
 
 //Route khách hàng đăng nhập - đăng ký
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -32,6 +33,8 @@ Route::post('/signup', [AuthController::class, 'signupPost'])->name('signup.post
 //
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/delete/{id}', [CartController::class, 'removeProductFromCart'])->name('cart.remove');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

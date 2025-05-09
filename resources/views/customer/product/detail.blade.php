@@ -123,7 +123,7 @@
                         <div class="flex flex-wrap gap-3">
                             @foreach ($storageVariants as $storage)
                                 <button type="button"
-                                        class="storage-option px-4 py-2 border rounded-full transition text-sm hover:bg-gray-100 {{ $loop->first ? 'ring-2 ring-blue-500 bg-blue-50 text-blue-700 border-blue-500' : '' }}"
+                                        class="storage-option px-4 py-2 border rounded-full transition text-sm hover:bg-gray-100"
                                         style="border-color: #d1d5db;"
                                         data-storage="{{ $storage->id }}">
                                     {{ $storage->capacity }}
@@ -134,9 +134,12 @@
                 @endif
 
                 <!-- Thêm vào giỏ -->
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('cart.add') }}">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="color_id" id="color-id" value="">
+                    <input type="hidden" name="storage_id" id="storage-id" value="">
+
                     <button type="submit"
                             class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
                         Thêm vào giỏ hàng
@@ -289,4 +292,49 @@
      data-variants='@json($product->variants)'>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tất cả các nút màu sắc và dung lượng
+        const colorButtons = document.querySelectorAll('.color-option');
+        const storageButtons = document.querySelectorAll('.storage-option');
+
+        // Lấy các trường input ẩn để lưu giá trị color_id và storage_id
+        const colorInput = document.getElementById('color-id');
+        const storageInput = document.getElementById('storage-id');
+
+        if (colorInput.value) {
+            colorButtons.forEach(btn => {
+                if (btn.getAttribute('data-color') === colorInput.value) {
+                    btn.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700');
+                }
+            });
+        }
+
+        storageButtons.forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700'));
+        storageInput.value = '';
+
+        colorButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const selectedColorId = this.getAttribute('data-color');
+                colorInput.value = selectedColorId;
+
+                colorButtons.forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700'));
+                this.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700');
+            });
+        });
+  
+        storageButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const selectedStorageId = this.getAttribute('data-storage');
+                storageInput.value = selectedStorageId;
+
+                storageButtons.forEach(btn => btn.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700'));
+                this.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50', 'text-blue-700');
+            });
+        });
+    });
+</script>
 

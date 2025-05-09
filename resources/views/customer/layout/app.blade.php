@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     <style>
         html, body {
             margin-top: 0;
@@ -30,7 +32,7 @@
 
     @include('customer.layout.partials.header')
 
-    <main class="p-4">
+    <main class="p-4 min-h-screen">
         @yield('content')
     </main>
 
